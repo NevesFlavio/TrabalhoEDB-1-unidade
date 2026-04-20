@@ -59,7 +59,7 @@ int main() {
     for (int i = 0; i < n3; i++) cout << v3[i] << " ";
     cout << "\n\n";
 
-    cout << "Vetor 10000 (depois):\n";
+    cout << "Vetor 10000 (ORDENADO):\n";
     for (int i = 0; i < n4; i++) cout << v4[i] << " ";
     cout << "\n";
 
@@ -67,7 +67,7 @@ int main() {
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
     
     
-    
+
     
     cout << "Tempo de execucao total: " << duration.count() << "ms" << endl;
    
