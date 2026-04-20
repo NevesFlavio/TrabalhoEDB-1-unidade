@@ -68,8 +68,6 @@ int main() {
     
     
     
-    
-    
     cout << "Tempo de execucao total: " << duration.count() << "ms" << endl;
    
     return 0;
