@@ -15,7 +15,7 @@ deque<int> selectionSort(deque<int> lista)
 
         for (int j = i + 1; j < tamanho; j++)
         {
-            if (lista[j] < lista[i])
+            if (lista[j] < lista[indMin])
             {
                 indMin = j;
             }
@@ -30,19 +30,19 @@ deque<int> selectionSort(deque<int> lista)
 
 TamanhoETempo beforeSelectionSort(int vetor[], int tamanho)
 {
-    deque<int> lista = {};
+    deque<int> lista;
 
     for (int i = 0; i < tamanho; i++)
     {
         lista.push_back(vetor[i]);
     }
 
-    const auto tempoInicio{std::chrono::steady_clock::now()};
+    auto tempoInicio = chrono::high_resolution_clock::now();
 
     lista = selectionSort(lista);
 
-    const auto tempoFinal{chrono::steady_clock::now()};
-    const chrono::duration<double> tempo{tempoFinal - tempoInicio};
+    auto tempoFinal = chrono::high_resolution_clock::now();
+    chrono::duration<double, std::milli> tempo{tempoFinal - tempoInicio};
 
     for (int i = 0; i < tamanho; i++)
     {

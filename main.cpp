@@ -37,8 +37,8 @@ void imprimirLista(int v[], int tamanho, bool ordenacao, bool mergeOuSelection)
 
 int main()
 {
-    int tamanhos[4] = {100, 1000, 10000, 20000};
-    // int tamanhos[4] = {10, 10, 100, 100};
+    // int tamanhos[4] = {100, 1000, 10000, 20000};
+    int tamanhos[4] = {10, 10, 100, 100};
 
     for (int i = 0; i < 4; i++)
     {
@@ -71,7 +71,7 @@ int main()
 
         TamanhoETempo resultadoSelectionSort = beforeSelectionSort(vetorSelection, n1); // Retorna o tempo de execução e o tamanho do vetor
 
-        // imprimirLista(vetorSelection, n1, true, false); // Imprimir o vetor ordenado do Selection
+        imprimirLista(vetorSelection, n1, true, false); // Imprimir o vetor ordenado do Selection
         // SelectionSort - Fim
 
         cout << "Merge Sort - Tamanho da lista: " << resultadoMergeSort.tamanho << ", Tempo de execução: " << resultadoMergeSort.tempo << endl;

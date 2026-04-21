@@ -71,7 +71,7 @@ TamanhoETempo beforeMergeSort(int v[], int inicio, int fim)
     mergeSort(v, inicio, fim);
 
     auto tempoFinal = chrono::high_resolution_clock::now();
-    const chrono::duration<double> tempo{tempoFinal - tempoInicio};
+    chrono::duration<double, std::milli> tempo{tempoFinal - tempoInicio};
 
     return TamanhoETempo{tamanho, tempo.count()};
 }
