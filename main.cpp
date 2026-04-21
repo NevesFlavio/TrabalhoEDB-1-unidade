@@ -39,13 +39,14 @@ int main() {
     for (int i = 0; i < n4; i++) cout << v4[i] << " ";
     cout << "\n\n";
 
- 
+    auto start = std::chrono::high_resolution_clock::now();
+    
     mergeSort(v1, 0, n1 - 1);
     mergeSort(v2, 0, n2 - 1);
     mergeSort(v3, 0, n3 - 1);
     mergeSort(v4, 0, n4 - 1);
 
-    auto start = std::chrono::high_resolution_clock::now();
+    
 
     cout << "Vetor 10 (ORDENADO):\n";
     for (int i = 0; i < n1; i++) cout << v1[i] << " ";
