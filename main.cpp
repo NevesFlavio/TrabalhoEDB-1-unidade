@@ -1,75 +1,49 @@
 #include <iostream>
 #include <chrono>
+#include "interfaces.h"
+
+void vetores(int v[], int tamanho, int i);
+TamanhoETempo beforeMergeSort(int v[], int inicio, int fim);
+TamanhoETempo beforeSelectionSort(int v[], int tamanho);
 
 using namespace std;
 
-void mergeSort(int v[], int inicio, int fim);
-void vetores(int v[], int tamanho, int i);
+void imprimirLista(int v[], int tamanho, bool ordenacao)
+{
+    if (ordenacao)
+    {
+        cout << "Vetor " << tamanho << " (DESORDENADO):\n";
+    }
+    else
+    {
+        cout << "Vetor " << tamanho << " (ORDENADO):\n";
+    }
 
-int main() {
-    
-    int v1[10];
-    int v2[100];
-    int v3[1000];
-    int v4[10000];
-    
-    int n1 = 10;
-    int n2 = 100;
-    int n3 = 1000;
-    int n4 = 10000;       
+    for (int j = 0; j < tamanho; j++)
+            cout << v[j] << " ";
+        cout << "\n\n";
+}
 
-    vetores(v1, 10, 0);
-    vetores(v2, 100, 0);
-    vetores(v3, 1000, 0);
-    vetores(v4, 10000, 0);
+int main()
+{
+    // int tamanhos[4] = {10, 100, 1000, 10000};
+    int tamanhos[4] = {10, 10, 10, 10};
 
-    cout << "Vetor 10 (DESORDENADO):\n";
-    for (int i = 0; i < n1; i++) cout << v1[i] << " ";
-    cout << "\n\n";
+    for (int i = 0; i < 4; i++)
+    {
 
-    cout << "Vetor 100 (DESORDENADO):\n";
-    for (int i = 0; i < n2; i++) cout << v2[i] << " ";
-    cout << "\n\n";
+        int v1[tamanhos[i]];
+        int n1 = tamanhos[i];
 
-    cout << "Vetor 1000 (DESORDENADO):\n";
-    for (int i = 0; i < n3; i++) cout << v3[i] << " ";
-    cout << "\n\n";
+        vetores(v1, n1, 0);
 
-    cout << "Vetor 10000 (DESORDENADO):\n";
-    for (int i = 0; i < n4; i++) cout << v4[i] << " ";
-    cout << "\n\n";
+        imprimirLista(v1, n1, false);
 
- 
-    mergeSort(v1, 0, n1 - 1);
-    mergeSort(v2, 0, n2 - 1);
-    mergeSort(v3, 0, n3 - 1);
-    mergeSort(v4, 0, n4 - 1);
+        // TamanhoETempo resultadoMergeSort = beforeMergeSort(v1, 0, n1 - 1);
+        TamanhoETempo resultadoSelectionSort = beforeSelectionSort(v1, n1);
 
-    auto start = std::chrono::high_resolution_clock::now();
+        imprimirLista(v1, n1, true);
+    }
 
-    cout << "Vetor 10 (ORDENADO):\n";
-    for (int i = 0; i < n1; i++) cout << v1[i] << " ";
-    cout << "\n\n";
-
-    cout << "Vetor 100 (ORDENADO):\n";
-    for (int i = 0; i < n2; i++) cout << v2[i] << " ";
-    cout << "\n\n";
-
-    cout << "Vetor 1000 (ORDENADO):\n";
-    for (int i = 0; i < n3; i++) cout << v3[i] << " ";
-    cout << "\n\n";
-
-    cout << "Vetor 10000 (ORDENADO):\n";
-    for (int i = 0; i < n4; i++) cout << v4[i] << " ";
-    cout << "\n";
-
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-    
-    
-
-    
-    cout << "Tempo de execucao total: " << duration.count() << "ms" << endl;
-   
     return 0;
 }
