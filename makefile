@@ -1,7 +1,7 @@
 all: main
 
 main: main.o mergesort.o vetores.o
-	g++ -Wall -std=c++17 -o main main.o mergesort.o selectionsort.o vetores.o
+	g++ -Wall -std=c++17 -o main main.o mergesort.o selectionsort.o vetores.o -Iheaders -o 
 
 main.o: main.cpp
 	g++ -Wall -std=c++17 -c main.cpp

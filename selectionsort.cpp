@@ -3,13 +3,7 @@
 #include <deque>
 #include <chrono>
 using namespace std;
-#include "interfaces.h"
-
-typedef struct
-{
-    int tamanho;
-    double tempo;
-} TamanhoETempo;
+#include "headers/selectionsort.h"
 
 deque<int> selectionSort(deque<int> lista)
 {
@@ -43,12 +37,12 @@ TamanhoETempo beforeSelectionSort(int vetor[], int tamanho)
         lista.push_back(vetor[i]);
     }
 
-    const auto start{std::chrono::steady_clock::now()};
+    const auto tempoInicio{std::chrono::steady_clock::now()};
 
     lista = selectionSort(lista);
 
-    const auto finish{chrono::steady_clock::now()};
-    const chrono::duration<double> tempo{finish - start};
+    const auto tempoFinal{chrono::steady_clock::now()};
+    const chrono::duration<double> tempo{tempoFinal - tempoInicio};
 
     for (int i = 0; i < tamanho; i++)
     {

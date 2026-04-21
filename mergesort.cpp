@@ -1,7 +1,7 @@
 #include <iostream>
 #include <chrono>
 using namespace std;
-#include "interfaces.h"
+#include "headers/mergesort.h"
 
 void intercalar(int v[], int inicio1, int inicio2, int fim2)
 {
@@ -66,12 +66,12 @@ void mergeSort(int v[], int inicio, int fim)
 TamanhoETempo beforeMergeSort(int v[], int inicio, int fim)
 {
     const int tamanho = fim + 1;
-    const auto start{std::chrono::steady_clock::now()};
+    auto tempoInicio = chrono::high_resolution_clock::now();
 
     mergeSort(v, inicio, fim);
 
-    const auto finish{chrono::steady_clock::now()};
-    const chrono::duration<double> tempo{finish - start};
+    auto tempoFinal = chrono::high_resolution_clock::now();
+    const chrono::duration<double> tempo{tempoFinal - tempoInicio};
 
     return TamanhoETempo{tamanho, tempo.count()};
 }
