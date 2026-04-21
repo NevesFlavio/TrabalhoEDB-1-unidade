@@ -58,16 +58,16 @@ int main()
         // MergeSort - Início
         vetores(vetorMerge, n1, 0); // Cria o vetor desordenado do Merge
 
-        // imprimirLista(vetorMerge, n1, false, true); // Imprime o vetor desordenado do Merge
+        imprimirLista(vetorMerge, n1, false, true); // Imprime o vetor desordenado do Merge
 
         TamanhoETempo resultadoMergeSort = beforeMergeSort(vetorMerge, 0, n1 - 1); // Retorna o tempo de execução e o tamanho do vetor
 
-        // imprimirLista(vetorMerge, n1, true, true); // Imprime o vetor ordenado do Merge
+        imprimirLista(vetorMerge, n1, true, true); // Imprime o vetor ordenado do Merge
         // MergeSort - Fim
 
         // SelectionSort - Início
         vetores(vetorSelection, n1, 0);                  // Cria o vetor desordenado do Selection
-        // imprimirLista(vetorSelection, n1, false, false); // Imprime o vetor desordenado do Selection
+        imprimirLista(vetorSelection, n1, false, false); // Imprime o vetor desordenado do Selection
 
         TamanhoETempo resultadoSelectionSort = beforeSelectionSort(vetorSelection, n1); // Retorna o tempo de execução e o tamanho do vetor
 
