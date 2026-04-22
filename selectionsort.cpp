@@ -42,7 +42,7 @@ TamanhoETempo beforeSelectionSort(int vetor[], int tamanho)
     lista = selectionSort(lista);
 
     auto tempoFinal = chrono::high_resolution_clock::now();
-    chrono::duration<double, std::milli> tempo{tempoFinal - tempoInicio};
+    chrono::duration<double> tempo = tempoFinal - tempoInicio;
 
     for (int i = 0; i < tamanho; i++)
     {

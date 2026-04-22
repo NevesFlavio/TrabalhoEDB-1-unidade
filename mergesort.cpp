@@ -66,12 +66,14 @@ void mergeSort(int v[], int inicio, int fim)
 TamanhoETempo beforeMergeSort(int v[], int inicio, int fim)
 {
     const int tamanho = fim + 1;
+
     auto tempoInicio = chrono::high_resolution_clock::now();
 
     mergeSort(v, inicio, fim);
 
     auto tempoFinal = chrono::high_resolution_clock::now();
-    chrono::duration<double, std::milli> tempo{tempoFinal - tempoInicio};
+
+    chrono::duration<double> tempo = tempoFinal - tempoInicio;
 
     return TamanhoETempo{tamanho, tempo.count()};
 }
