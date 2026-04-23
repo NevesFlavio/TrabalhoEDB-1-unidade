@@ -2,11 +2,15 @@
 #include <chrono>
 // #include "interfaces.h"
 
+#include "buscaSequencial.cpp"
+#include "buscaBinaria.cpp"
 #include "mergesort.cpp"
 #include "selectionsort.cpp"
 #include "vetores.cpp"
 
-void vetores(int v[], int tamanho, int i);
+// void vetores(int v[], int tamanho, int i);
+TamanhoETempo beforeBuscaSequencial(int v[], int tamanho, int numeroEscolhido);
+TamanhoETempo beforeBuscaBinaria(int v[], int tamanho, int numeroEscolhido);
 TamanhoETempo beforeMergeSort(int v[], int inicio, int fim);
 TamanhoETempo beforeSelectionSort(int v[], int tamanho);
 
@@ -37,45 +41,60 @@ void imprimirLista(int v[], int tamanho, bool ordenacao, bool mergeOuSelection)
 
 int main()
 {
-    int tamanhos[4] = {100, 1000, 10000, 20000};
-    // int tamanhos[4] = {10, 10, 100, 100};
+    // int tamanhos[5] = {100, 1000, 10000, 20000, 500000};
+    int tamanhos[1] = {50000};
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 1; i++)
     {
-
-        int vetorMerge[tamanhos[i]];
-        int vetorSelection[tamanhos[i]];
+        int vetorBuscaSequencial[tamanhos[i]];
+        int vetorBuscaBinaria[tamanhos[i]];
+        // int vetorMerge[tamanhos[i]];
+        // int vetorSelection[tamanhos[i]];
         int n1 = tamanhos[i];
 
         // Busca Sequêncial - Início
+        vetores(vetorBuscaSequencial, n1, 0);
+
+        // imprimirLista(vetorBuscaSequencial, n1, false, false); // Imprime o vetor desordenado para busca sequencial
+
+        // Cria o vetor desordenado da Busca Sequencial
+        TamanhoETempo resultadoBuscaSequencial = beforeBuscaSequencial(vetorBuscaSequencial, n1, 1); // Retorna o tempo de execução e o tamanho do vetor
 
         // Busca Sequêncial - Fim
 
         // Busca Binária - Início
+        vetores(vetorBuscaBinaria, n1, 0);
 
+        // imprimirLista(vetorBuscaBinaria, n1, false, false); // Imprime o vetor desordenado para busca binária
+
+        // Cria o vetor desordenado da Busca Binária
+        TamanhoETempo resultadoBuscaBinaria = beforeBuscaBinaria(vetorBuscaBinaria, n1, 1); // Retorna o tempo de execução e o tamanho do vetor
         // Busca Binária - Fim
 
         // MergeSort - Início
-        vetores(vetorMerge, n1, 0); // Cria o vetor desordenado do Merge
+        // vetores(vetorMerge, n1, 0); // Cria o vetor desordenado do Merge
 
         // imprimirLista(vetorMerge, n1, false, true); // Imprime o vetor desordenado do Merge
 
-        TamanhoETempo resultadoMergeSort = beforeMergeSort(vetorMerge, 0, n1 - 1); // Retorna o tempo de execução e o tamanho do vetor
+        // TamanhoETempo resultadoMergeSort = beforeMergeSort(vetorMerge, 0, n1 - 1); // Retorna o tempo de execução e o tamanho do vetor
 
         // imprimirLista(vetorMerge, n1, true, true); // Imprime o vetor ordenado do Merge
         // MergeSort - Fim
 
         // SelectionSort - Início
-        vetores(vetorSelection, n1, 0);                  // Cria o vetor desordenado do Selection
+        // vetores(vetorSelection, n1, 0); // Cria o vetor desordenado do Selection
         // imprimirLista(vetorSelection, n1, false, false); // Imprime o vetor desordenado do Selection
 
-        TamanhoETempo resultadoSelectionSort = beforeSelectionSort(vetorSelection, n1); // Retorna o tempo de execução e o tamanho do vetor
+        // TamanhoETempo resultadoSelectionSort = beforeSelectionSort(vetorSelection, n1); // Retorna o tempo de execução e o tamanho do vetor
 
         // imprimirLista(vetorSelection, n1, true, false); // Imprimir o vetor ordenado do Selection
         // SelectionSort - Fim
 
-        cout << "Merge Sort - Tamanho da lista: " << resultadoMergeSort.tamanho << ", Tempo de execução: " << resultadoMergeSort.tempo << endl;
-        cout << "Selection Sort - Tamanho da lista: " << resultadoSelectionSort.tamanho << ", Tempo de execução: " << resultadoSelectionSort.tempo << endl;
+        cout << "Busca Sequencial - Tamanho da lista: " << resultadoBuscaSequencial.tamanho << ", Tempo de execução: " << resultadoBuscaSequencial.tempo << endl;
+        cout << "Busca Binária - Tamanho da lista: " << resultadoBuscaBinaria.tamanho << ", Tempo de execução: " << resultadoBuscaBinaria.tempo << endl;
+
+        // cout << "Merge Sort - Tamanho da lista: " << resultadoMergeSort.tamanho << ", Tempo de execução: " << resultadoMergeSort.tempo << endl;
+        // cout << "Selection Sort - Tamanho da lista: " << resultadoSelectionSort.tamanho << ", Tempo de execução: " << resultadoSelectionSort.tempo << endl;
     }
 
     return 0;
