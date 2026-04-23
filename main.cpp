@@ -1,6 +1,9 @@
 #include <iostream>
 #include <chrono>
-// #include "interfaces.h"
+#include <vector>
+#include <fstream>
+#include <string>
+#include <cmath>
 
 #include "buscaSequencial.cpp"
 #include "buscaBinaria.cpp"
@@ -14,7 +17,52 @@ TamanhoETempo beforeBuscaBinaria(int v[], int tamanho, int numeroEscolhido);
 TamanhoETempo beforeMergeSort(int v[], int inicio, int fim);
 TamanhoETempo beforeSelectionSort(int v[], int tamanho);
 
+struct ResultadoAlgoritmo
+{
+    string nome;
+    vector<double> tempos;
+};
+
 using namespace std;
+
+// ---------------------------------------------------------------------------------------------
+
+// Inserir função do professor aqui - Início
+
+int funcaoDoProfessor(int v[], int tamanho)
+{
+    // beforeBuscaSequencial(v, tamanho, 1);
+    return 0;
+}
+
+TamanhoETempo beforeFuncaoDoProfessor(int v[], int tamanho) // Contar os tempos da função do professor
+{
+    auto inicio = chrono::high_resolution_clock::now();
+
+    int professor = funcaoDoProfessor(v, tamanho); // Função do Professor
+
+    auto fim = chrono::high_resolution_clock::now();
+
+    chrono::duration<double> tempo = fim - inicio;
+
+    return {tamanho, tempo.count()};
+}
+
+// Inserir função do professor aqui - Fim
+
+// ---------------------------------------------------------------------------------------------
+
+double diferenca(double a[], double b[], int tamanho)
+{
+    double soma = 0;
+
+    for (int i = 0; i < tamanho; i++)
+    {
+        soma += fabs(a[i] - b[i]);
+    }
+
+    return soma;
+}
 
 void imprimirLista(int v[], int tamanho, bool ordenacao, bool mergeOuSelection)
 {
@@ -39,63 +87,137 @@ void imprimirLista(int v[], int tamanho, bool ordenacao, bool mergeOuSelection)
     cout << "\n\n";
 }
 
+string descobrirComplexidade(
+    double prof[],
+    double seq[],
+    double bin[],
+    double merge[],
+    double sel[],
+    int tamanho)
+{
+
+    double dSeq = diferenca(prof, seq, tamanho);
+    double dBin = diferenca(prof, bin, tamanho);
+    double dMerge = diferenca(prof, merge, tamanho);
+    double dSel = diferenca(prof, sel, tamanho);
+
+    double menor = dSeq;
+    string resultado = "O(n) - semelhante a Busca Sequencial";
+
+    if (dBin < menor)
+    {
+        menor = dBin;
+        resultado = "O(log n) - semelhante a Busca Binária";
+    }
+
+    if (dMerge < menor)
+    {
+        menor = dMerge;
+        resultado = "O(n log n) - semelhante ao MergeSort";
+    }
+
+    if (dSel < menor)
+    {
+        menor = dSel;
+        resultado = "O(n^2) - semelhante ao SelectionSort";
+    }
+
+    return resultado;
+}
+
 int main()
 {
-    // int tamanhos[5] = {100, 1000, 10000, 20000, 500000};
-    int tamanhos[1] = {50000};
+    vector<int> tamanhos = {100, 1000, 10000, 20000};
 
-    for (int i = 0; i < 1; i++)
+    double temposProfessor[4];
+    double temposBuscaSeq[4];
+    double temposBuscaBin[4];
+    double temposSelection[4];
+    double temposMerge[4];
+
+    for (int i = 0; i < tamanhos.size(); i++)
     {
-        int vetorBuscaSequencial[tamanhos[i]];
-        int vetorBuscaBinaria[tamanhos[i]];
-        // int vetorMerge[tamanhos[i]];
-        // int vetorSelection[tamanhos[i]];
         int n1 = tamanhos[i];
+
+        int vetorBuscaSequencial[n1];
+        int vetorBuscaBinaria[n1];
+        int vetorMerge[n1];
+        int vetorSelection[n1];
+        int vetorProfessor[n1];
+
+        vetores(vetorProfessor, n1, 0);
+        beforeFuncaoDoProfessor(vetorProfessor, n1);
 
         // Busca Sequêncial - Início
         vetores(vetorBuscaSequencial, n1, 0);
 
-        // imprimirLista(vetorBuscaSequencial, n1, false, false); // Imprime o vetor desordenado para busca sequencial
+        // imprimirLista(vetorBuscaSequencial, n1, false, false);
+        // Imprime o vetor desordenado para busca sequencial
 
         // Cria o vetor desordenado da Busca Sequencial
-        TamanhoETempo resultadoBuscaSequencial = beforeBuscaSequencial(vetorBuscaSequencial, n1, 1); // Retorna o tempo de execução e o tamanho do vetor
+        TamanhoETempo resultadoBuscaSequencial = beforeBuscaSequencial(vetorBuscaSequencial, n1, 1);
+        temposBuscaSeq[i] = resultadoBuscaSequencial.tempo;
 
         // Busca Sequêncial - Fim
 
         // Busca Binária - Início
-        vetores(vetorBuscaBinaria, n1, 0);
+        vetoresCrescentes(vetorBuscaBinaria, n1, 0);
 
-        // imprimirLista(vetorBuscaBinaria, n1, false, false); // Imprime o vetor desordenado para busca binária
+        // imprimirLista(vetorBuscaBinaria, n1, false, false);
+        // Imprime o vetor desordenado para busca binária
 
         // Cria o vetor desordenado da Busca Binária
-        TamanhoETempo resultadoBuscaBinaria = beforeBuscaBinaria(vetorBuscaBinaria, n1, 1); // Retorna o tempo de execução e o tamanho do vetor
+        TamanhoETempo resultadoBuscaBinaria = beforeBuscaBinaria(vetorBuscaBinaria, n1, 1);
+        temposBuscaBin[i] = resultadoBuscaBinaria.tempo;
+
         // Busca Binária - Fim
 
         // MergeSort - Início
-        // vetores(vetorMerge, n1, 0); // Cria o vetor desordenado do Merge
+        vetores(vetorMerge, n1, 0);
 
-        // imprimirLista(vetorMerge, n1, false, true); // Imprime o vetor desordenado do Merge
+        // imprimirLista(vetorMerge, n1, false, true);
+        // Imprime o vetor desordenado do Merge
 
-        // TamanhoETempo resultadoMergeSort = beforeMergeSort(vetorMerge, 0, n1 - 1); // Retorna o tempo de execução e o tamanho do vetor
+        TamanhoETempo resultadoMergeSort = beforeMergeSort(vetorMerge, 0, n1 - 1);
+        temposMerge[i] = resultadoMergeSort.tempo;
 
-        // imprimirLista(vetorMerge, n1, true, true); // Imprime o vetor ordenado do Merge
+        // imprimirLista(vetorMerge, n1, true, true);
+        // Imprime o vetor ordenado do Merge
         // MergeSort - Fim
 
         // SelectionSort - Início
-        // vetores(vetorSelection, n1, 0); // Cria o vetor desordenado do Selection
-        // imprimirLista(vetorSelection, n1, false, false); // Imprime o vetor desordenado do Selection
+        vetores(vetorSelection, n1, 0);
+        // imprimirLista(vetorSelection, n1, false, false);
+        // Imprime o vetor desordenado do Selection
 
-        // TamanhoETempo resultadoSelectionSort = beforeSelectionSort(vetorSelection, n1); // Retorna o tempo de execução e o tamanho do vetor
+        TamanhoETempo resultadoSelectionSort = beforeSelectionSort(vetorSelection, n1);
+        temposSelection[i] = resultadoSelectionSort.tempo;
 
-        // imprimirLista(vetorSelection, n1, true, false); // Imprimir o vetor ordenado do Selection
+        // imprimirLista(vetorSelection, n1, true, false);
+        // Imprimir o vetor ordenado do Selection
         // SelectionSort - Fim
 
-        cout << "Busca Sequencial - Tamanho da lista: " << resultadoBuscaSequencial.tamanho << ", Tempo de execução: " << resultadoBuscaSequencial.tempo << endl;
-        cout << "Busca Binária - Tamanho da lista: " << resultadoBuscaBinaria.tamanho << ", Tempo de execução: " << resultadoBuscaBinaria.tempo << endl;
+        cout << "Busca Sequencial - Tamanho da lista: " << resultadoBuscaSequencial.tamanho
+             << ", Tempo de execucao: " << resultadoBuscaSequencial.tempo << endl;
+        cout << "Busca Binaria - Tamanho da lista: " << resultadoBuscaBinaria.tamanho
+             << ", Tempo de execucao: " << resultadoBuscaBinaria.tempo << endl;
 
-        // cout << "Merge Sort - Tamanho da lista: " << resultadoMergeSort.tamanho << ", Tempo de execução: " << resultadoMergeSort.tempo << endl;
-        // cout << "Selection Sort - Tamanho da lista: " << resultadoSelectionSort.tamanho << ", Tempo de execução: " << resultadoSelectionSort.tempo << endl;
+        cout << "Merge Sort - Tamanho da lista: " << resultadoMergeSort.tamanho
+             << ", Tempo de execucao: " << resultadoMergeSort.tempo << endl;
+        cout << "Selection Sort - Tamanho da lista: " << resultadoSelectionSort.tamanho
+             << ", Tempo de execucao: " << resultadoSelectionSort.tempo << endl;
     }
+
+    string complexidade = descobrirComplexidade(
+        temposProfessor,
+        temposBuscaSeq,
+        temposBuscaBin,
+        temposMerge,
+        temposSelection,
+        tamanhos.size());
+
+    cout << "\nComplexidade estimada da funcao do professor: "
+         << complexidade << endl;
 
     return 0;
 }
