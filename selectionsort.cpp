@@ -5,11 +5,11 @@
 using namespace std;
 #include "headers/selectionsort.h"
 
-deque<int> selectionSort(deque<int> lista)
+deque<int> selectionSort(deque<int> lista) // Função para ordenar o vetor usando o Selection Sort
 {
     int tamanho = lista.size();
 
-    for (int i = 0; i < tamanho; i++)
+    for (int i = 0; i < tamanho; i++) // Loops aninhados para percorrer o vetor e encontrar o menor elemento
     {
         int indMin = i;
 
@@ -28,11 +28,11 @@ deque<int> selectionSort(deque<int> lista)
     return lista;
 }
 
-TamanhoETempo beforeSelectionSort(int vetor[], int tamanho)
+TamanhoETempo beforeSelectionSort(int vetor[], int tamanho) // Função para contar o tempo gasto pelo Selection Sort
 {
     deque<int> lista;
 
-    for (int i = 0; i < tamanho; i++)
+    for (int i = 0; i < tamanho; i++) 
     {
         lista.push_back(vetor[i]);
     }

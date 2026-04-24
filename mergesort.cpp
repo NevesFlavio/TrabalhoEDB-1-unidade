@@ -3,17 +3,17 @@
 using namespace std;
 #include "headers/mergesort.h"
 
-void intercalar(int v[], int inicio1, int inicio2, int fim2)
+void intercalar(int v[], int inicio1, int inicio2, int fim2) // Função para intercalar os dois subvetores durante o MergeSort
 {
     int fim1 = inicio2 - 1;
     int i = inicio1;
     int j = inicio2;
     int k = 0;
 
-    int tamanho = fim2 - inicio1 + 1;
-    int *tmp = new int[tamanho];
+    int tamanho = fim2 - inicio1 + 1; // Tamanho do vetor temporário para armazenar os elementos intercalados
+    int *tmp = new int[tamanho]; // Aloca um vetor temporário para armazenar os elementos intercalados
 
-    while (i <= fim1 && j <= fim2)
+    while (i <= fim1 && j <= fim2) // Enquanto houver elementos em ambos os subvetores
     {
         if (v[i] <= v[j])
         {
@@ -28,21 +28,21 @@ void intercalar(int v[], int inicio1, int inicio2, int fim2)
         k++;
     }
 
-    while (i <= fim1)
+    while (i <= fim1) // Se ainda houver elementos no primeiro subvetor, adiciona-os ao vetor temporário
     {
         tmp[k] = v[i];
         i++;
         k++;
     }
 
-    while (j <= fim2)
+    while (j <= fim2) // Se ainda houver elementos no segundo subvetor, adiciona-os ao vetor temporário
     {
         tmp[k] = v[j];
         j++;
         k++;
     }
 
-    for (int x = 0; x < tamanho; x++)
+    for (int x = 0; x < tamanho; x++) // Copia os elementos intercalados de volta para o vetor original
     {
         v[inicio1 + x] = tmp[x];
     }
@@ -50,7 +50,7 @@ void intercalar(int v[], int inicio1, int inicio2, int fim2)
     delete[] tmp;
 }
 
-void mergeSort(int v[], int inicio, int fim)
+void mergeSort(int v[], int inicio, int fim) // Função recursiva para realizar o MergeSort
 {
     if (inicio < fim)
     {
@@ -63,7 +63,7 @@ void mergeSort(int v[], int inicio, int fim)
     }
 }
 
-TamanhoETempo beforeMergeSort(int v[], int inicio, int fim)
+TamanhoETempo beforeMergeSort(int v[], int inicio, int fim) // Função para medir o tempo gasto pelo MergeSort e retornar o tamanho do vetor e o tempo gasto
 {
     const int tamanho = fim + 1;
 

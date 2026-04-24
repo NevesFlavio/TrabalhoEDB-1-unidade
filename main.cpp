@@ -17,7 +17,7 @@ TamanhoETempo beforeBuscaBinaria(int v[], int tamanho, int numeroEscolhido);
 TamanhoETempo beforeMergeSort(int v[], int inicio, int fim);
 TamanhoETempo beforeSelectionSort(int v[], int tamanho);
 
-struct ResultadoAlgoritmo
+struct ResultadoAlgoritmo // Estrutura para armazenar os resultados de cada algoritmo
 {
     string nome;
     vector<double> tempos;
@@ -31,9 +31,13 @@ using namespace std;
 
 int funcaoDoProfessor(int v[], int tamanho)
 {
-    // beforeBuscaSequencial(v, tamanho, 1);
+    // beforeBuscaSequencial(v, tamanho, 1); // Exemplo de chamada para testar o funcionamento
     return 0;
 }
+
+// Inserir função do professor aqui - Fim
+
+// ---------------------------------------------------------------------------------------------
 
 TamanhoETempo beforeFuncaoDoProfessor(int v[], int tamanho) // Contar os tempos da função do professor
 {
@@ -48,11 +52,7 @@ TamanhoETempo beforeFuncaoDoProfessor(int v[], int tamanho) // Contar os tempos 
     return {tamanho, tempo.count()};
 }
 
-// Inserir função do professor aqui - Fim
-
-// ---------------------------------------------------------------------------------------------
-
-double diferenca(double a[], double b[], int tamanho)
+double diferenca(double a[], double b[], int tamanho) // Função para calcular a diferença entre os tempos do professor e dos algoritmos
 {
     double soma = 0;
 
@@ -64,7 +64,7 @@ double diferenca(double a[], double b[], int tamanho)
     return soma;
 }
 
-void imprimirLista(int v[], int tamanho, bool ordenacao, bool mergeOuSelection)
+void imprimirLista(int v[], int tamanho, bool ordenacao, bool mergeOuSelection) // Função para imprimir os vetores, indicando se estão ordenados ou desordenados, e qual algoritmo de ordenação foi utilizado
 {
     if (ordenacao)
     {
@@ -87,7 +87,7 @@ void imprimirLista(int v[], int tamanho, bool ordenacao, bool mergeOuSelection)
     cout << "\n\n";
 }
 
-string descobrirComplexidade(
+string descobrirComplexidade( // Função para descobrir a complexidade da função do professor comparando os tempos com os algoritmos conhecidos
     double prof[],
     double seq[],
     double bin[],
@@ -96,11 +96,13 @@ string descobrirComplexidade(
     int tamanho)
 {
 
-    double dSeq = diferenca(prof, seq, tamanho);
+    // Calcula a diferença entre os tempos do professor e dos algoritmos conhecidos
+    double dSeq = diferenca(prof, seq, tamanho); 
     double dBin = diferenca(prof, bin, tamanho);
     double dMerge = diferenca(prof, merge, tamanho);
     double dSel = diferenca(prof, sel, tamanho);
 
+    // Encontra o menor valor de diferença para determinar a complexidade mais próxima
     double menor = dSeq;
     string resultado = "O(n) - semelhante a Busca Sequencial";
 
@@ -127,26 +129,31 @@ string descobrirComplexidade(
 
 int main()
 {
-    vector<int> tamanhos = {100, 1000, 10000, 20000};
+    vector<int> tamanhos = {100, 1000, 10000, 20000}; // Tamanhos dos vetores a serem testados
 
+    // Vetores para armazenar os tempos de cada algoritmo
     double temposProfessor[4];
     double temposBuscaSeq[4];
     double temposBuscaBin[4];
     double temposSelection[4];
     double temposMerge[4];
 
-    for (int i = 0; i < tamanhos.size(); i++)
+    for (int i = 0; i < tamanhos.size(); i++) // Loop para testar cada tamanho de vetor
     {
         int n1 = tamanhos[i];
 
+        // Criação dos vetores para cada algoritmo
         int vetorBuscaSequencial[n1];
         int vetorBuscaBinaria[n1];
         int vetorMerge[n1];
         int vetorSelection[n1];
         int vetorProfessor[n1];
 
+        // Função do Professor - Início
         vetores(vetorProfessor, n1, 0);
         beforeFuncaoDoProfessor(vetorProfessor, n1);
+
+        // Função do Professor - Fim
 
         // Busca Sequêncial - Início
         vetores(vetorBuscaSequencial, n1, 0);
@@ -216,7 +223,7 @@ int main()
         temposSelection,
         tamanhos.size());
 
-    cout << "\nComplexidade estimada da funcao do professor: "
+    cout << "\nComplexidade estimada da funcao de entrada: "
          << complexidade << endl;
 
     return 0;

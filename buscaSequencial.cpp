@@ -3,9 +3,9 @@
 using namespace std;
 #include "headers/buscaSequencial.h" 
 
-int buscaSequencial(int vetor[], int tamanhoVetor, int numeroEscolhido)
+int buscaSequencial(int vetor[], int tamanhoVetor, int numeroEscolhido) // Função de busca sequencial
 {
-    for (int i = 0; i < tamanhoVetor; i++)
+    for (int i = 0; i < tamanhoVetor; i++) // Loop para percorrer o vetor
     {
         if (vetor[i] == numeroEscolhido)
         {
@@ -15,7 +15,7 @@ int buscaSequencial(int vetor[], int tamanhoVetor, int numeroEscolhido)
     return -1;
 }
 
-TamanhoETempo beforeBuscaSequencial(int v[], int tamanho, int numeroEscolhido)
+TamanhoETempo beforeBuscaSequencial(int v[], int tamanho, int numeroEscolhido) // Função para contar o tempo da busca sequencial
 {
     auto tempoInicio = chrono::high_resolution_clock::now();
 
